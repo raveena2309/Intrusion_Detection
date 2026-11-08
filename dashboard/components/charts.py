@@ -220,20 +220,29 @@ def local_shap_chart(feature_names: List[str], shap_values: np.ndarray,
 
 def metrics_table_chart(per_class: dict) -> go.Figure:
     """Table showing per-class precision, recall, F1."""
-    classes = list(per_class.keys())
+    # Filter only entries that are dicts (ignores 'accuracy' which is a float)
+    valid_classes = [c for c, v in per_class.items() if isinstance(v, dict)]
+    main_classes = [c for c in valid_classes if c not in ("macro avg", "weighted avg")]
+    avg_classes = [c for c in ("macro avg", "weighted avg") if c in valid_classes]
+    classes = sorted(main_classes) + avg_classes
+
     prec = [round(per_class[c].get("precision", 0), 4) for c in classes]
     rec  = [round(per_class[c].get("recall", 0), 4) for c in classes]
-    f1   = [round(per_class[c].get("f1", 0), 4) for c in classes]
+    f1   = [round(per_class[c].get("f1-score", per_class[c].get("f1", 0)), 4) for c in classes]
+    support = [
+        int(per_class[c]["support"]) if per_class[c].get("support") is not None else "-"
+        for c in classes
+    ]
 
     fig = go.Figure(go.Table(
         header=dict(
-            values=["Class", "Precision", "Recall", "F1"],
+            values=["Class / Category", "Precision", "Recall", "F1-Score", "Support"],
             fill_color=CARD_BG,
             font=dict(color=ACCENT, size=12),
             line_color="#2d3250",
         ),
         cells=dict(
-            values=[classes, prec, rec, f1],
+            values=[classes, prec, rec, f1, support],
             fill_color=DARK_BG,
             font=dict(color=TEXT, size=11),
             line_color="#2d3250",

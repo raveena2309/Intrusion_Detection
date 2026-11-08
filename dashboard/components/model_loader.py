@@ -101,6 +101,18 @@ def load_results():
         if p.exists():
             with open(p) as f:
                 results[fname.replace(".yaml", "")] = yaml.safe_load(f)
+
+    # Normalize anomaly_results if nested under full_test_set
+    if "anomaly_results" in results and isinstance(results["anomaly_results"], dict):
+        anom = results["anomaly_results"]
+        full_set = anom.get("full_test_set", {})
+        if isinstance(full_set, dict):
+            for k, v in full_set.items():
+                if k not in anom:
+                    anom[k] = v
+            if "per_class_detection_rate" in full_set and "per_class_detection_rates" not in anom:
+                anom["per_class_detection_rates"] = full_set["per_class_detection_rate"]
+
     return results
 
 
