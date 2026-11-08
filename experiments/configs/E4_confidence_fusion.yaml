@@ -1,0 +1,66 @@
+# E4: Confidence-Aware Decision Fusion
+# Experiment: Combine calibrated classifier + Isolation Forest via 5-rule logic
+experiment_id: E4
+name: Confidence-Aware Decision Fusion
+description: >
+  Fuse predictions from a calibrated XGBoost classifier and Isolation Forest
+  anomaly detector using a 5-rule decision logic. Evaluate known-attack
+  accuracy, unknown-attack recall, and false positive rate under simple
+  and tuned threshold settings.
+
+components:
+  classifier:
+    model: XGBoost (E1 best)
+    calibration:
+      method: isotonic
+      cv: 5
+  anomaly_detector:
+    model: IsolationForest (E3)
+    threshold: 0.5009  # from E3
+
+fusion:
+  algorithm: 5-rule decision logic
+  rules:
+    R1: "High confidence (>=conf_thresh) + normal anomaly -> accept classifier"
+    R2: "Normal prediction + high anomaly score (>=anom_thresh) -> flag unknown"
+    R3: "Attack prediction + high anomaly -> flag unknown-suspicious"
+    R4: "Low confidence (< conf_thresh) + high anomaly -> flag unknown"
+    R5: "Low confidence + normal anomaly -> uncertain-review"
+
+  simple_thresholds:
+    conf_threshold: 0.6
+    anomaly_threshold: 0.005  # auto-selected
+
+  tuned_thresholds:
+    method: grid_search
+    conf_range: [0.5, 0.95]
+    conf_step: 0.05
+    anomaly_range: [-0.15, 0.6]
+    anomaly_step: 0.01
+    optimization_target: max_unknown_recall_at_known_acc_0.98
+
+calibration_metrics:
+  ece: 0.032
+  brier_score: 0.014
+  method: isotonic
+
+evaluation:
+  metrics:
+    - known_accuracy
+    - unknown_recall
+    - false_positive_rate
+    - precision_unknown
+    - n_known_decision
+    - n_uncertain_review
+    - n_unknown_suspicious
+
+openset_evaluation:
+  withheld_class: Worms
+  withheld_samples: 44
+  protocol: >
+    Remove Worms from known classes; treat as novel attack.
+    Measure if fusion flags Worms samples as unknown-suspicious.
+
+random_seed: 42
+run_date: "2026-11-08"
+script: experiments/train_fusion.py

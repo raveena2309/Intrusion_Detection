@@ -1,0 +1,47 @@
+# E3: Anomaly Detection with Isolation Forest
+# Experiment: Train on normal traffic only, detect attacks as anomalies
+experiment_id: E3
+name: Anomaly Detection (Isolation Forest)
+description: >
+  Train an Isolation Forest on normal-only traffic from the UNSW-NB15
+  training set. Evaluate anomaly detection on the full test set and a
+  withheld Worms-only subset simulating novel attack detection.
+
+dataset:
+  name: UNSW-NB15
+  train_file: datasets/raw/UNSW_NB15_training-set.csv
+  test_file: datasets/raw/UNSW_NB15_testing-set.csv
+  train_normal_samples: 56000  # Normal class from training set
+  test_samples: 82332
+  withheld_class: Worms
+  withheld_samples: 44
+
+model:
+  algorithm: IsolationForest
+  params:
+    n_estimators: 100
+    contamination: auto
+    random_state: 42
+    n_jobs: -1
+    max_samples: auto
+
+threshold_selection:
+  method: target_fpr
+  target_fpr: 0.05
+  search_range: [0.0, 1.0]
+  search_resolution: 1000
+
+evaluation:
+  metrics:
+    - auroc
+    - auprc
+    - precision_recall_f1
+    - fpr_on_normal
+    - per_class_detection_rate
+  scenarios:
+    - full_test_set
+    - withheld_worms_subset
+
+random_seed: 42
+run_date: "2026-11-08"
+script: experiments/train_anomaly_detector.py

@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\caption{Top-10 Discriminative Features Identified by TreeSHAP}
+\label{tab:shap_features}
+\centering
+\begin{tabular}{rlrl}
+\hline
+\textbf{Rank} & \textbf{Feature Name} & \textbf{Mean |SHAP|} & \textbf{Domain Description} \\
+\hline
+1 & \texttt{sbytes} & 7.034564 & Source-to-destination transaction bytes \\
+2 & \texttt{smean} & 6.177421 & Mean packet size transmitted by source \\
+3 & \texttt{sttl} & 5.225558 & Source-to-destination time-to-live \\
+4 & \texttt{service} & 3.656813 & Application layer service (http, dns, etc.) \\
+5 & \texttt{ct_srv_dst} & 3.183941 & Connections to same service and destination \\
+6 & \texttt{proto} & 3.126954 & Transaction protocol (tcp, udp, etc.) \\
+7 & \texttt{ct_dst_src_ltm} & 2.847838 & Connections between dst and src in 100 flows \\
+8 & \texttt{ct_srv_src} & 2.591747 & Connections to same service and source \\
+9 & \texttt{ct_dst_sport_ltm} & 2.171465 & Connections from dst to same source port \\
+10 & \texttt{ct_src_dport_ltm} & 2.031635 & Connections from src to same destination port \\
+\hline
+\end{tabular}
+\end{table}

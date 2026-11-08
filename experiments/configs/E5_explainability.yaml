@@ -1,0 +1,38 @@
+# E5: SHAP Explainability Analysis
+# Experiment: TreeSHAP explanations for XGBoost classifier
+experiment_id: E5
+name: SHAP Explainability Analysis
+description: >
+  Compute TreeSHAP values for the XGBoost multiclass classifier to provide
+  global feature importance rankings and local per-prediction explanations.
+  Generate summary plots and feature importance bar charts.
+
+model:
+  source: XGBoost from E1
+  explainer: shap.TreeExplainer
+
+shap_config:
+  method: TreeExplainer
+  data_subset: test_set
+  max_samples: 82332  # full test set
+  output_shape: [n_samples, n_features, n_classes]
+  aggregation: mean_abs_across_samples_and_classes
+
+outputs:
+  artifacts:
+    - results/metrics/shap_artifacts.pkl
+    - results/metrics/shap_feature_ranking.txt
+  figures:
+    - results/figures/shap_importance.png
+    - results/figures/shap_summary.png
+
+top_features:
+  rank_1: {name: sbytes, mean_shap: 7.035}
+  rank_2: {name: smean, mean_shap: 6.177}
+  rank_3: {name: sttl, mean_shap: 5.226}
+  rank_4: {name: service, mean_shap: 3.657}
+  rank_5: {name: ct_srv_dst, mean_shap: 3.184}
+
+random_seed: 42
+run_date: "2026-11-08"
+script: experiments/generate_shap.py

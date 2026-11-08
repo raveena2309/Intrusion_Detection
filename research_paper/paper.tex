@@ -1,0 +1,130 @@
+\\documentclass[conference]{IEEEtran}
+\\IEEEoverridecommandlockouts
+\\usepackage{cite}
+\\usepackage{amsmath,amssymb,amsfonts}
+\\usepackage{algorithmic}
+\\usepackage{graphicx}
+\\usepackage{textcomp}
+\\usepackage{xcolor}
+\\usepackage{booktabs}
+\\usepackage{hyperref}
+
+\\def\\BibTeX{{\\rm B\\kern-.05em{\\sc i\\kern-.025em b}\\kern-.08em
+    T\\kern-.1667em\\lower.7ex\\hbox{E}\\kern-.125emX}}
+
+\\begin{document}
+
+\\title{Intelligent Network Intrusion Detection with Confidence-Aware Decision Fusion and Explainability\\\\
+{\\footnotesize \\textsuperscript{*}A Hybrid Framework Combining Multiclass Classification, Anomaly Detection, and SHAP-Based Interpretation on the UNSW-NB15 Benchmark}
+}
+
+\\author{\\IEEEauthorblockN{Raveena B.}
+\\IEEEauthorblockA{\\textit{Department of Computer Science and Engineering} \\\\
+raveenab90@gmail.com}
+}
+
+\\maketitle
+
+\\begin{abstract}
+Network Intrusion Detection Systems (NIDS) face dual challenges: accurately classifying known attack categories and detecting novel, previously unseen threats. This paper presents an end-to-end intelligent NIDS framework that addresses both challenges through a confidence-aware decision fusion architecture. We train XGBoost and Random Forest classifiers for 10-class attack categorization on the UNSW-NB15 benchmark dataset, achieving 76.36\\% accuracy and 0.5130 macro-F1 (XGBoost) without synthetic oversampling. An Isolation Forest anomaly detector, trained exclusively on normal traffic, provides complementary anomaly scores (AUROC = 0.7641). We introduce isotonic probability calibration (ECE = 0.0321) and a novel 5-rule decision fusion engine that combines calibrated classifier confidence with anomaly scores to flag unknown attacks. In open-set evaluation with Worms as a withheld novel class, our tuned fusion achieves 93.18\\% unknown-attack recall while maintaining 98.57\\% known-attack accuracy. SHAP-based TreeExplainer provides both global feature importance rankings and local per-prediction explanations, identifying source bytes (\\texttt{sbytes}), source mean packet size (\\texttt{smean}), and source time-to-live (\\texttt{sttl}) as the top discriminative features. The complete pipeline operates at 24,581 flows/second on CPU hardware with P95 latency of 0.045ms, demonstrating production-readiness.
+\\end{abstract}
+
+\\begin{IEEEkeywords}
+Network Intrusion Detection, XGBoost, Isolation Forest, Decision Fusion, Confidence Calibration, Open-Set Recognition, SHAP Explainability, UNSW-NB15.
+\\end{IEEEkeywords}
+
+\\section{Introduction}
+The proliferation of networked systems and Internet-of-Things (IoT) devices has dramatically expanded the attack surface available to cyber adversaries. Network Intrusion Detection Systems (NIDS) serve as a critical defense layer, monitoring network traffic for malicious activity. Traditional signature-based systems, while effective against known threats, fail to detect zero-day attacks and novel threat variants that lack pre-existing signatures \\cite{moustafa2015unsw}.
+
+Machine learning (ML) approaches to intrusion detection have shown significant promise, with supervised classifiers achieving high accuracy on benchmark datasets \\cite{moustafa2016evaluation}. However, several critical challenges persist:
+\\begin{enumerate}
+    \\item \\textbf{Multi-class categorization}: Most ML-IDS research focuses on binary classification (normal vs. attack), ignoring the operational necessity of identifying specific attack families for targeted incident response.
+    \\item \\textbf{Unknown attack detection}: Supervised classifiers operate under a closed-world assumption, assigning all incoming flows to known categories and misclassifying novel zero-day attacks.
+    \\item \\textbf{Confidence calibration}: Standard ML models produce uncalibrated probabilities, impairing threshold-based security alerting \\cite{guo2017calibration}.
+    \\item \\textbf{Explainability}: Black-box models fail to provide actionable rationale for triage in Security Operations Centers (SOCs) \\cite{lundberg2020local}.
+    \\item \\textbf{Production deployment}: Theoretical models often suffer from high inference latency, impeding high-throughput deployment.
+\\end{enumerate}
+
+To bridge these gaps, this work makes the following contributions:
+\\begin{itemize}
+    \\item A rigorous 10-class evaluation of tree-based ensembles (XGBoost and Random Forest) on the natural distribution of the UNSW-NB15 dataset.
+    \\item A hybrid architecture combining supervised classification with an Isolation Forest trained on normal-only traffic.
+    \\item Non-parametric isotonic probability calibration delivering an Expected Calibration Error (ECE) of 0.0321.
+    \\item A 5-rule decision fusion engine routing flows into known, unknown-suspicious, and uncertain-review categories.
+    \\item An empirical open-set validation protocol detecting 93.18\\% of novel withheld Worms attacks.
+    \\item Complete pipeline operationalization achieving 24,581 flows/sec with interactive Streamlit visualization.
+\\end{itemize}
+
+\\section{Related Work}
+Moustafa and Slay introduced the UNSW-NB15 dataset in 2015 \\cite{moustafa2015unsw}, mitigating the historical artifacts of KDD Cup 99 and NSL-KDD. Subsequent studies on UNSW-NB15 primarily focused on binary detection \\cite{moustafa2016evaluation} or applied synthetic oversampling (SMOTE) to boost minority attack scores. However, oversampling can distort decision boundaries and inflate metrics artificially.
+
+Isolation Forest \\cite{liu2008isolation} has emerged as an effective unsupervised anomaly detector. Recent surveys report AUROC values between 0.72 and 0.81 for network anomaly detection, but emphasize that standalone anomaly detectors incur prohibitive false positive rates (FPR). Hybrid decision frameworks combining anomaly scoring and classification have emerged as a viable alternative, though few integrate formal confidence calibration \\cite{guo2017calibration}. TreeSHAP \\cite{lundberg2020local} enables exact Shapley attribution for tree ensembles, which we employ to provide interpretable explanations for high-risk flows.
+
+\\section{Dataset and Preprocessing}
+We utilize the official UNSW-NB15 benchmark partitions (175,341 training and 82,332 testing records). After excluding target variables (\\texttt{label}, \\texttt{attack\\_cat}) and the index variable (\\texttt{id}), 42 network flow attributes remain. 
+
+\\textbf{Data Integrity:} We verified that the \\texttt{id} column displays an artificial Pearson correlation of 0.7272 with the attack label due to ordered sequential generation; it is rigorously excluded to prevent target leakage. Additionally, we note the presence of 8,541 duplicate records (10.37\\%) between training and test sets as an inherent characteristic of the public benchmark.
+
+\\input{tables/table1_class_distribution.tex}
+
+The preprocessor performs median imputation for missing values, ordinal encoding for categorical attributes (\\texttt{proto}, \\texttt{service}, \\texttt{state}), and z-score standard scaling fitted exclusively on the training split.
+
+\\section{Methodology}
+
+\\subsection{Multiclass Classification}
+We train Random Forest (100 estimators, $\\sqrt{d}$ feature subsampling) and XGBoost (100 boosting rounds, depth 6, learning rate 0.3, histogram-based tree method). XGBoost acts as the primary classifier due to its superior gradient-boosted optimization over skewed multi-class targets.
+
+\\subsection{Anomaly Detection}
+An Isolation Forest is trained exclusively on the 56,000 normal traffic flows of the training set. It computes an isolation score $s(\\mathbf{x}) \\in [0, 1]$, where higher values denote severe deviation from benign traffic. The threshold is calibrated at $\\tau_{\\text{anom}} = 0.5009$ targeting a 5\\% FPR on benign training flows.
+
+\\subsection{Confidence Calibration}
+Raw softmax probabilities are calibrated post-hoc via Isotonic Regression using 5-fold cross-validation. This non-parametric monotonic transformation aligns predicted class probabilities $p_k(\\mathbf{x})$ with empirical accuracy, reducing miscalibration.
+
+\\subsection{Decision Fusion Engine}
+The 5-rule decision fusion engine maps the calibrated top prediction $(\\hat{y}, p_{\\max})$ and anomaly score $s$ into operational decisions:
+\\begin{itemize}
+    \\item \\textbf{Rule 1 (High Confidence Known):} If $p_{\\max} \\geq \\tau_{\\text{conf}}$ and $s < \\tau_{\\text{anom}}$, classify as known class $\\hat{y}$.
+    \\item \\textbf{Rule 2 (Normal Deviation):} If $\\hat{y} = \\text{Normal}$ and $s \\geq \\tau_{\\text{anom}}$, flag as \\textit{unknown-suspicious}.
+    \\item \\textbf{Rule 3 (Attack Variant):} If $\\hat{y} \\neq \\text{Normal}$ and $s \\geq \\tau_{\\text{anom}}$, flag as \\textit{unknown-suspicious}.
+    \\item \\textbf{Rule 4 (Low Conf, High Anomaly):} If $p_{\\max} < \\tau_{\\text{conf}}$ and $s \\geq \\tau_{\\text{anom}}$, flag as \\textit{unknown-suspicious}.
+    \\item \\textbf{Rule 5 (Uncertain Review):} If $p_{\\max} < \\tau_{\\text{conf}}$ and $s < \\tau_{\\text{anom}}$, route to \\textit{uncertain-review}.
+\\end{itemize}
+
+\\input{tables/table2_classifier_comparison.tex}
+
+\\section{Experimental Results}
+
+\\subsection{Supervised Classification Performance}
+As shown in Table~\\ref{tab:classifier_comparison}, XGBoost outperforms Random Forest across all evaluation metrics, achieving an overall accuracy of 76.36\\% and weighted F1-score of 0.7801. Table~\\ref{tab:per_class_results} highlights the per-class results for XGBoost. Classes with significant representation (Generic, Exploits, Normal) achieve high detection rates (F1 $>$ 0.71), while severely underrepresented categories (Analysis, Backdoor) face high error rates due to natural imbalance.
+
+\\input{tables/table3_per_class_results.tex}
+
+\\subsection{Anomaly Detection and Calibration}
+The Isolation Forest achieves an AUROC of 0.7641 and AUPRC of 0.7753 on the full test set. Probability calibration via isotonic regression achieves an Expected Calibration Error (ECE) of 0.0321 and Brier score of 0.0144, verifying high probabilistic fidelity.
+
+\\input{tables/table4_fusion_results.tex}
+
+\\subsection{Decision Fusion and Open-Set Generalization}
+Table~\\ref{tab:fusion_results} summarizes the decision fusion benchmarks. While conservative simple fusion yields low FPR (4.57\\%), tuned fusion raises known-attack accuracy to 98.57\\%. In open-set testing where Worms traffic (44 flows) is withheld during training, the fusion engine successfully flags 41 of 44 novel attacks, achieving 93.18\\% unknown recall.
+
+\\subsection{Feature Explainability with TreeSHAP}
+Table~\\ref{tab:shap_features} ranks the top 10 features governing predictions based on mean absolute SHAP attributions. Source transaction bytes (\\texttt{sbytes}), mean packet length (\\texttt{smean}), and time-to-live (\\texttt{sttl}) dominate classification decisions.
+
+\\input{tables/table5_shap_features.tex}
+
+\\subsection{Operational Latency and Throughput}
+Benchmarked over 82,332 test flows on an Intel CPU environment, the end-to-end inference engine achieves a throughput of 24,581 samples/second with a median latency of 0.040ms and 95th percentile latency of 0.045ms.
+
+\\section{Conclusion}
+This paper presented an intelligent, end-to-end NIDS combining calibrated multi-class XGBoost with Isolation Forest anomaly detection. Our 5-rule decision fusion effectively balances known attack identification (98.57\\% accuracy) with zero-day attack discovery (93.18\\% recall on novel Worms). Integrated TreeSHAP interpretations provide full transparency for SOC operations, while sub-millisecond CPU throughput validates real-world deployability.
+
+\\bibliographystyle{IEEEtran}
+\\begin{thebibliography}{00}
+\\bibitem{moustafa2015unsw} N. Moustafa and J. Slay, ``UNSW-NB15: A comprehensive data set for network intrusion detection systems (UNSW-NB15 network data set),'' in \\textit{2015 Military Communications and Information Systems Conference (MilCIS)}, IEEE, 2015, pp. 1--6, doi: 10.1109/MilCIS.2015.7348942.
+\\bibitem{moustafa2016evaluation} N. Moustafa and J. Slay, ``The evaluation of Network Anomaly Detection Systems: Statistical analysis of the UNSW-NB15 data set and the comparison with the KDD99 data set,'' \\textit{Information Security Journal: A Global Perspective}, vol. 25, no. 1-3, pp. 18--31, 2016.
+\\bibitem{guo2017calibration} C. Guo, G. Pleiss, Y. Sun, and K. Q. Weinberger, ``On calibration of modern neural networks,'' in \\textit{International Conference on Machine Learning (ICML)}, PMLR, 2017, pp. 1321--1330.
+\\bibitem{lundberg2020local} S. M. Lundberg et al., ``From local explanations to global understanding with explainable AI for trees,'' \\textit{Nature Machine Intelligence}, vol. 2, no. 1, pp. 56--67, 2020.
+\\bibitem{liu2008isolation} F. T. Liu, K. M. Ting, and Z.-H. Zhou, ``Isolation forest,'' in \\textit{2008 Eighth IEEE International Conference on Data Mining}, IEEE, 2008, pp. 413--422.
+\\end{thebibliography}
+
+\\end{document}
