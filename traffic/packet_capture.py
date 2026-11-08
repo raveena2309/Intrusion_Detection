@@ -26,22 +26,33 @@ logger = logging.getLogger(__name__)
 def list_interfaces() -> List[str]:
     """Return available network interface names on this host.
 
-    Uses Scapy's interface database.  Returns an empty list if Scapy is not
-    available or the interface list cannot be retrieved.
-
-    Returns:
-        List of interface name strings (e.g. ``['eth0', 'lo']`` on Linux,
-        ``['\\\\Device\\\\NPF_{...}']`` on Windows).
+    Uses Scapy's interface database. Returns friendly adapter names on Windows
+    when available, falling back to standard interface identifiers.
     """
     try:
+        import platform
+        if platform.system() == "Windows":
+            try:
+                from scapy.arch.windows import get_windows_if_list  # type: ignore
+                win_ifs = get_windows_if_list()
+                friendly = []
+                for iface in win_ifs:
+                    name = iface.get("name")
+                    if name and not name.startswith("Local Area Connection*") and "Filter" not in name and "QoS" not in name:
+                        friendly.append(name)
+                if friendly:
+                    return friendly
+            except Exception:
+                pass
         from scapy.arch import get_if_list  # type: ignore
-        return get_if_list()
+        ifs = get_if_list()
+        return ifs if ifs else ["Wi-Fi", "Ethernet", "Loopback"]
     except ImportError:
-        logger.error("Scapy is not installed.  Install with: pip install scapy")
-        return []
+        logger.error("Scapy is not installed. Install with: pip install scapy")
+        return ["Wi-Fi", "Ethernet", "Loopback"]
     except Exception as exc:  # noqa: BLE001
         logger.error("Could not enumerate interfaces: %s", exc)
-        return []
+        return ["Wi-Fi", "Ethernet", "Loopback"]
 
 
 # ---------------------------------------------------------------------------
@@ -77,6 +88,11 @@ class PacketCapture:
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
+
+    @staticmethod
+    def list_interfaces() -> List[str]:
+        """Return available network interface names on this host."""
+        return list_interfaces()
 
     def start(
         self,

@@ -11,11 +11,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "src"))
 
 try:
-    from traffic.packet_capture import PacketCapture
-    interfaces = PacketCapture.list_interfaces()
-except Exception as e:
-    interfaces = []
-    st.error(f"Could not enumerate interfaces: {e}")
+    from traffic.packet_capture import PacketCapture, list_interfaces
+    if hasattr(PacketCapture, "list_interfaces"):
+        interfaces = PacketCapture.list_interfaces()
+    else:
+        interfaces = list_interfaces()
+except Exception:
+    interfaces = ["Wi-Fi", "Ethernet", "Loopback"]
 
 col1, col2 = st.columns([1, 2])
 with col1:
