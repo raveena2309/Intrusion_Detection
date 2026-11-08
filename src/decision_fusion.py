@@ -73,6 +73,26 @@ class DecisionFusion:
     ) -> None:
         self.confidence_threshold = confidence_threshold
         self.anomaly_threshold = anomaly_threshold
+        self.label_names = [
+            "Analysis", "Backdoor", "DoS", "Exploits", "Fuzzers",
+            "Generic", "Normal", "Reconnaissance", "Shellcode", "Worms"
+        ]
+
+    def __call__(self, clf_proba, anomaly_scores):
+        import numpy as np
+        pred_indices = np.argmax(clf_proba, axis=1)
+        preds, is_anoms, confs = [], [], []
+        for i in range(len(pred_indices)):
+            res = self.fuse(
+                predicted_class=int(pred_indices[i]),
+                class_probabilities=clf_proba[i],
+                anomaly_score=float(anomaly_scores[i]),
+                label_names=self.label_names,
+            )
+            preds.append(res.final_decision)
+            is_anoms.append(res.is_anomaly)
+            confs.append(res.confidence)
+        return {"prediction": preds, "is_anomaly": is_anoms, "confidence": confs}
 
     # ------------------------------------------------------------------
     # Core fusion
@@ -288,6 +308,26 @@ class DecisionFusion:
         """
         self.confidence_threshold = conf_threshold
         self.anomaly_threshold = anomaly_threshold
+        self.label_names = [
+            "Analysis", "Backdoor", "DoS", "Exploits", "Fuzzers",
+            "Generic", "Normal", "Reconnaissance", "Shellcode", "Worms"
+        ]
+
+    def __call__(self, clf_proba, anomaly_scores):
+        import numpy as np
+        pred_indices = np.argmax(clf_proba, axis=1)
+        preds, is_anoms, confs = [], [], []
+        for i in range(len(pred_indices)):
+            res = self.fuse(
+                predicted_class=int(pred_indices[i]),
+                class_probabilities=clf_proba[i],
+                anomaly_score=float(anomaly_scores[i]),
+                label_names=self.label_names,
+            )
+            preds.append(res.final_decision)
+            is_anoms.append(res.is_anomaly)
+            confs.append(res.confidence)
+        return {"prediction": preds, "is_anomaly": is_anoms, "confidence": confs}
 
         clf_probs = clf_model.predict_proba(X)
         clf_preds = np.argmax(clf_probs, axis=1)
