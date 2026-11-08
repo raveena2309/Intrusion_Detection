@@ -1,0 +1,56 @@
+# Model Configuration for Intelligent NIDS
+# =========================================
+
+random_seed: 42
+
+# Multiclass classification models
+classifiers:
+  random_forest:
+    n_estimators: 200
+    max_depth: null
+    min_samples_split: 5
+    min_samples_leaf: 2
+    class_weight: "balanced"
+    random_state: 42
+    n_jobs: -1
+  
+  xgboost:
+    n_estimators: 300
+    max_depth: 8
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 3
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    random_state: 42
+    n_jobs: -1
+    eval_metric: "mlogloss"
+    use_label_encoder: false
+
+# Anomaly detection models
+anomaly_detectors:
+  isolation_forest:
+    n_estimators: 200
+    contamination: "auto"
+    max_samples: "auto"
+    random_state: 42
+    n_jobs: -1
+
+# Confidence calibration
+calibration:
+  method: "isotonic"  # isotonic, sigmoid (Platt)
+  cv_folds: 5
+
+# Decision fusion
+fusion:
+  confidence_threshold: null   # To be determined from validation
+  anomaly_threshold: null      # To be determined from validation
+  optimization_objective: "f1_unknown"  # Metric to optimize thresholds
+
+# Model artifacts paths
+artifacts:
+  classifier_dir: "models/classifier"
+  anomaly_dir: "models/anomaly"
+  calibration_dir: "models/calibration"
+  preprocessing_dir: "models/preprocessing"

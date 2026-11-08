@@ -1,0 +1,1065 @@
+report_date: '2026-11-08T23:02:02.758603'
+dataset_name: UNSW-NB15
+source_url: https://research.unsw.edu.au/projects/unsw-nb15-dataset
+files:
+  training:
+    exists: true
+    path: D:\Projects\ml_project\temp_clone\datasets\raw\UNSW_NB15_training-set.csv
+    filename: UNSW_NB15_training-set.csv
+    size_bytes: 32293018
+    size_mb: 30.8
+    modified: '2026-11-08T23:00:30.990400'
+    sha256: bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa
+  testing:
+    exists: true
+    path: D:\Projects\ml_project\temp_clone\datasets\raw\UNSW_NB15_testing-set.csv
+    filename: UNSW_NB15_testing-set.csv
+    size_bytes: 15380800
+    size_mb: 14.67
+    modified: '2026-11-08T23:00:40.716870'
+    sha256: 734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559
+schema:
+  training:
+    split: training
+    shape:
+    - 175341
+    - 45
+    n_rows: 175341
+    n_columns: 45
+    columns:
+    - id
+    - dur
+    - proto
+    - service
+    - state
+    - spkts
+    - dpkts
+    - sbytes
+    - dbytes
+    - rate
+    - sttl
+    - dttl
+    - sload
+    - dload
+    - sloss
+    - dloss
+    - sinpkt
+    - dinpkt
+    - sjit
+    - djit
+    - swin
+    - stcpb
+    - dtcpb
+    - dwin
+    - tcprtt
+    - synack
+    - ackdat
+    - smean
+    - dmean
+    - trans_depth
+    - response_body_len
+    - ct_srv_src
+    - ct_state_ttl
+    - ct_dst_ltm
+    - ct_src_dport_ltm
+    - ct_dst_sport_ltm
+    - ct_dst_src_ltm
+    - is_ftp_login
+    - ct_ftp_cmd
+    - ct_flw_http_mthd
+    - ct_src_ltm
+    - ct_srv_dst
+    - is_sm_ips_ports
+    - attack_cat
+    - label
+    dtypes:
+      id: int64
+      dur: float64
+      proto: str
+      service: str
+      state: str
+      spkts: int64
+      dpkts: int64
+      sbytes: int64
+      dbytes: int64
+      rate: float64
+      sttl: int64
+      dttl: int64
+      sload: float64
+      dload: float64
+      sloss: int64
+      dloss: int64
+      sinpkt: float64
+      dinpkt: float64
+      sjit: float64
+      djit: float64
+      swin: int64
+      stcpb: int64
+      dtcpb: int64
+      dwin: int64
+      tcprtt: float64
+      synack: float64
+      ackdat: float64
+      smean: int64
+      dmean: int64
+      trans_depth: int64
+      response_body_len: int64
+      ct_srv_src: int64
+      ct_state_ttl: int64
+      ct_dst_ltm: int64
+      ct_src_dport_ltm: int64
+      ct_dst_sport_ltm: int64
+      ct_dst_src_ltm: int64
+      is_ftp_login: int64
+      ct_ftp_cmd: int64
+      ct_flw_http_mthd: int64
+      ct_src_ltm: int64
+      ct_srv_dst: int64
+      is_sm_ips_ports: int64
+      attack_cat: str
+      label: int64
+    has_binary_label: true
+    has_multiclass_label: true
+    issues: []
+    actual_categories:
+    - Analysis
+    - Backdoor
+    - DoS
+    - Exploits
+    - Fuzzers
+    - Generic
+    - Normal
+    - Reconnaissance
+    - Shellcode
+    - Worms
+  testing:
+    split: testing
+    shape:
+    - 82332
+    - 45
+    n_rows: 82332
+    n_columns: 45
+    columns:
+    - id
+    - dur
+    - proto
+    - service
+    - state
+    - spkts
+    - dpkts
+    - sbytes
+    - dbytes
+    - rate
+    - sttl
+    - dttl
+    - sload
+    - dload
+    - sloss
+    - dloss
+    - sinpkt
+    - dinpkt
+    - sjit
+    - djit
+    - swin
+    - stcpb
+    - dtcpb
+    - dwin
+    - tcprtt
+    - synack
+    - ackdat
+    - smean
+    - dmean
+    - trans_depth
+    - response_body_len
+    - ct_srv_src
+    - ct_state_ttl
+    - ct_dst_ltm
+    - ct_src_dport_ltm
+    - ct_dst_sport_ltm
+    - ct_dst_src_ltm
+    - is_ftp_login
+    - ct_ftp_cmd
+    - ct_flw_http_mthd
+    - ct_src_ltm
+    - ct_srv_dst
+    - is_sm_ips_ports
+    - attack_cat
+    - label
+    dtypes:
+      id: int64
+      dur: float64
+      proto: str
+      service: str
+      state: str
+      spkts: int64
+      dpkts: int64
+      sbytes: int64
+      dbytes: int64
+      rate: float64
+      sttl: int64
+      dttl: int64
+      sload: float64
+      dload: float64
+      sloss: int64
+      dloss: int64
+      sinpkt: float64
+      dinpkt: float64
+      sjit: float64
+      djit: float64
+      swin: int64
+      stcpb: int64
+      dtcpb: int64
+      dwin: int64
+      tcprtt: float64
+      synack: float64
+      ackdat: float64
+      smean: int64
+      dmean: int64
+      trans_depth: int64
+      response_body_len: int64
+      ct_srv_src: int64
+      ct_state_ttl: int64
+      ct_dst_ltm: int64
+      ct_src_dport_ltm: int64
+      ct_dst_sport_ltm: int64
+      ct_dst_src_ltm: int64
+      is_ftp_login: int64
+      ct_ftp_cmd: int64
+      ct_flw_http_mthd: int64
+      ct_src_ltm: int64
+      ct_srv_dst: int64
+      is_sm_ips_ports: int64
+      attack_cat: str
+      label: int64
+    has_binary_label: true
+    has_multiclass_label: true
+    issues: []
+    actual_categories:
+    - Analysis
+    - Backdoor
+    - DoS
+    - Exploits
+    - Fuzzers
+    - Generic
+    - Normal
+    - Reconnaissance
+    - Shellcode
+    - Worms
+quality:
+  training:
+    split: training
+    shape:
+    - 175341
+    - 45
+    missing_values: {}
+    infinity_values: {}
+    duplicate_rows: 0
+    constant_columns: []
+    column_types:
+      numerical:
+      - id
+      - dur
+      - spkts
+      - dpkts
+      - sbytes
+      - dbytes
+      - rate
+      - sttl
+      - dttl
+      - sload
+      - dload
+      - sloss
+      - dloss
+      - sinpkt
+      - dinpkt
+      - sjit
+      - djit
+      - swin
+      - stcpb
+      - dtcpb
+      - dwin
+      - tcprtt
+      - synack
+      - ackdat
+      - smean
+      - dmean
+      - trans_depth
+      - response_body_len
+      - ct_srv_src
+      - ct_state_ttl
+      - ct_dst_ltm
+      - ct_src_dport_ltm
+      - ct_dst_sport_ltm
+      - ct_dst_src_ltm
+      - is_ftp_login
+      - ct_ftp_cmd
+      - ct_flw_http_mthd
+      - ct_src_ltm
+      - ct_srv_dst
+      - is_sm_ips_ports
+      - label
+      categorical: []
+      other:
+      - proto
+      - service
+      - state
+      - attack_cat
+    total_missing_cells: 0
+    duplicate_percentage: 0.0
+    numerical_stats:
+      id:
+        min: 1.0
+        max: 175341.0
+        mean: 87671.0
+        std: 50616.731112350586
+        median: 87671.0
+        nunique: 175341
+      dur:
+        min: 0.0
+        max: 59.999989
+        mean: 1.3593886921256295
+        std: 6.480248856652842
+        median: 0.001582
+        nunique: 74039
+      spkts:
+        min: 1.0
+        max: 9616.0
+        mean: 20.29866374664226
+        std: 136.88759690768774
+        median: 2.0
+        nunique: 480
+      dpkts:
+        min: 0.0
+        max: 10974.0
+        mean: 18.969590683297117
+        std: 110.25827058162155
+        median: 2.0
+        nunique: 443
+      sbytes:
+        min: 28.0
+        max: 12965233.0
+        mean: 8844.843835725815
+        std: 174765.64430947448
+        median: 430.0
+        nunique: 7214
+      dbytes:
+        min: 0.0
+        max: 14655550.0
+        mean: 14928.918564397374
+        std: 143654.2177178705
+        median: 164.0
+        nunique: 6660
+      rate:
+        min: 0.0
+        max: 1000000.003
+        mean: 95406.18710518941
+        std: 165400.97845725933
+        median: 3225.80652
+        nunique: 76991
+      sttl:
+        min: 0.0
+        max: 255.0
+        mean: 179.546996994428
+        std: 102.94001105701696
+        median: 254.0
+        nunique: 11
+      dttl:
+        min: 0.0
+        max: 254.0
+        mean: 79.60956650184498
+        std: 110.50686317659952
+        median: 29.0
+        nunique: 6
+      sload:
+        min: 0.0
+        max: 5988000256.0
+        mean: 73454033.19406255
+        std: 188357447.00020307
+        median: 879674.75
+        nunique: 80885
+      dload:
+        min: 0.0
+        max: 22422730.0
+        mean: 671205.5741883258
+        std: 2421312.388757486
+        median: 1447.022705
+        nunique: 77474
+      sloss:
+        min: 0.0
+        max: 4803.0
+        mean: 4.953000153985662
+        std: 66.00505853508564
+        median: 0.0
+        nunique: 409
+      dloss:
+        min: 0.0
+        max: 5484.0
+        mean: 6.948009877895073
+        std: 52.73299929294158
+        median: 0.0
+        nunique: 370
+      sinpkt:
+        min: 0.0
+        max: 84371.496
+        mean: 985.9768636758545
+        std: 7242.245840957421
+        median: 0.279733
+        nunique: 76161
+      dinpkt:
+        min: 0.0
+        max: 56716.824
+        mean: 88.21629640844411
+        std: 987.0931947448008
+        median: 0.006
+        nunique: 74245
+      sjit:
+        min: 0.0
+        max: 1460480.016
+        mean: 4976.25422621193
+        std: 44965.84651918757
+        median: 0.0
+        nunique: 77532
+      djit:
+        min: 0.0
+        max: 289388.2697
+        mean: 604.3538264155103
+        std: 4061.0432811266783
+        median: 0.0
+        nunique: 76831
+      swin:
+        min: 0.0
+        max: 255.0
+        mean: 116.25733855743951
+        std: 127.00102415612092
+        median: 0.0
+        nunique: 13
+      stcpb:
+        min: 0.0
+        max: 4294958913.0
+        mean: 969250421.9105115
+        std: 1355264249.263036
+        median: 0.0
+        nunique: 75265
+      dtcpb:
+        min: 0.0
+        max: 4294881924.0
+        mean: 968877027.0711528
+        std: 1353999546.225652
+        median: 0.0
+        nunique: 75089
+      dwin:
+        min: 0.0
+        max: 255.0
+        mean: 115.01362487952048
+        std: 126.88652954242663
+        median: 0.0
+        nunique: 7
+      tcprtt:
+        min: 0.0
+        max: 2.518893
+        mean: 0.04139564435585516
+        std: 0.0793539718267979
+        median: 0.0
+        nunique: 43319
+      synack:
+        min: 0.0
+        max: 2.100352
+        mean: 0.021020450476500075
+        std: 0.04339978350809994
+        median: 0.0
+        nunique: 40142
+      ackdat:
+        min: 0.0
+        max: 1.520884
+        mean: 0.020375193879355085
+        std: 0.040506355913428764
+        median: 0.0
+        nunique: 37708
+      smean:
+        min: 28.0
+        max: 1504.0
+        mean: 136.7517694093224
+        std: 204.67735958881985
+        median: 73.0
+        nunique: 1357
+      dmean:
+        min: 0.0
+        max: 1458.0
+        mean: 124.17338215249143
+        std: 258.31705598827045
+        median: 44.0
+        nunique: 1328
+      trans_depth:
+        min: 0.0
+        max: 172.0
+        mean: 0.10598205781876457
+        std: 0.7769107861776775
+        median: 0.0
+        nunique: 11
+      response_body_len:
+        min: 0.0
+        max: 6558056.0
+        mean: 2144.2916545474245
+        std: 54207.96729413286
+        median: 0.0
+        nunique: 2386
+      ct_srv_src:
+        min: 1.0
+        max: 63.0
+        mean: 9.306437170998226
+        std: 10.70433122059233
+        median: 5.0
+        nunique: 52
+      ct_state_ttl:
+        min: 0.0
+        max: 6.0
+        mean: 1.3041787146189425
+        std: 0.9544060989961584
+        median: 1.0
+        nunique: 5
+      ct_dst_ltm:
+        min: 1.0
+        max: 51.0
+        mean: 6.193936386811983
+        std: 8.052476384089168
+        median: 2.0
+        nunique: 50
+      ct_src_dport_ltm:
+        min: 1.0
+        max: 51.0
+        mean: 5.383538362390998
+        std: 8.047104197483023
+        median: 1.0
+        nunique: 47
+      ct_dst_sport_ltm:
+        min: 1.0
+        max: 46.0
+        mean: 4.206255239789895
+        std: 5.783585061266456
+        median: 1.0
+        nunique: 32
+      ct_dst_src_ltm:
+        min: 1.0
+        max: 65.0
+        mean: 8.729880632595913
+        std: 10.95618557595772
+        median: 3.0
+        nunique: 54
+      is_ftp_login:
+        min: 0.0
+        max: 4.0
+        mean: 0.014948015581067748
+        std: 0.1260480473850499
+        median: 0.0
+        nunique: 4
+      ct_ftp_cmd:
+        min: 0.0
+        max: 4.0
+        mean: 0.014948015581067748
+        std: 0.1260480473850499
+        median: 0.0
+        nunique: 4
+      ct_flw_http_mthd:
+        min: 0.0
+        max: 30.0
+        mean: 0.13306642485214526
+        std: 0.701207606749996
+        median: 0.0
+        nunique: 11
+      ct_src_ltm:
+        min: 1.0
+        max: 60.0
+        mean: 6.955789005423717
+        std: 8.321492728163477
+        median: 3.0
+        nunique: 50
+      ct_srv_dst:
+        min: 1.0
+        max: 62.0
+        mean: 9.100757951648502
+        std: 10.75695199096367
+        median: 4.0
+        nunique: 52
+      is_sm_ips_ports:
+        min: 0.0
+        max: 1.0
+        mean: 0.015752162928236977
+        std: 0.12451554406577864
+        median: 0.0
+        nunique: 2
+      label:
+        min: 0.0
+        max: 1.0
+        mean: 0.6806223302022916
+        std: 0.4662368642329751
+        median: 1.0
+        nunique: 2
+    categorical_stats: {}
+  testing:
+    split: testing
+    shape:
+    - 82332
+    - 45
+    missing_values: {}
+    infinity_values: {}
+    duplicate_rows: 0
+    constant_columns: []
+    column_types:
+      numerical:
+      - id
+      - dur
+      - spkts
+      - dpkts
+      - sbytes
+      - dbytes
+      - rate
+      - sttl
+      - dttl
+      - sload
+      - dload
+      - sloss
+      - dloss
+      - sinpkt
+      - dinpkt
+      - sjit
+      - djit
+      - swin
+      - stcpb
+      - dtcpb
+      - dwin
+      - tcprtt
+      - synack
+      - ackdat
+      - smean
+      - dmean
+      - trans_depth
+      - response_body_len
+      - ct_srv_src
+      - ct_state_ttl
+      - ct_dst_ltm
+      - ct_src_dport_ltm
+      - ct_dst_sport_ltm
+      - ct_dst_src_ltm
+      - is_ftp_login
+      - ct_ftp_cmd
+      - ct_flw_http_mthd
+      - ct_src_ltm
+      - ct_srv_dst
+      - is_sm_ips_ports
+      - label
+      categorical: []
+      other:
+      - proto
+      - service
+      - state
+      - attack_cat
+    total_missing_cells: 0
+    duplicate_percentage: 0.0
+    numerical_stats:
+      id:
+        min: 1.0
+        max: 82332.0
+        mean: 41166.5
+        std: 23767.345518589154
+        median: 41166.5
+        nunique: 82332
+      dur:
+        min: 0.0
+        max: 59.999989
+        mean: 1.0067561463464996
+        std: 4.710444410846159
+        median: 0.014138
+        nunique: 39888
+      spkts:
+        min: 1.0
+        max: 10646.0
+        mean: 18.666472331535733
+        std: 133.91635344919015
+        median: 6.0
+        nunique: 420
+      dpkts:
+        min: 0.0
+        max: 11018.0
+        mean: 17.54593596657436
+        std: 115.57408562825539
+        median: 2.0
+        nunique: 436
+      sbytes:
+        min: 24.0
+        max: 14355774.0
+        mean: 7993.908164504688
+        std: 171642.2618800507
+        median: 534.0
+        nunique: 4489
+      dbytes:
+        min: 0.0
+        max: 14657531.0
+        mean: 13233.78556332896
+        std: 151471.45609124954
+        median: 178.0
+        nunique: 4034
+      rate:
+        min: 0.0
+        max: 1000000.003
+        mean: 82410.88673910811
+        std: 148620.3670405897
+        median: 2650.176667
+        nunique: 40616
+      sttl:
+        min: 0.0
+        max: 255.0
+        mean: 180.96766749259098
+        std: 101.51335750093565
+        median: 254.0
+        nunique: 11
+      dttl:
+        min: 0.0
+        max: 253.0
+        mean: 95.71300344944858
+        std: 116.66772163700348
+        median: 29.0
+        nunique: 8
+      sload:
+        min: 0.0
+        max: 5268000256.0
+        mean: 64549016.914059296
+        std: 179861832.6300027
+        median: 577003.21875
+        nunique: 42873
+      dload:
+        min: 0.0
+        max: 20821108.0
+        mean: 630546.9589998035
+        std: 2393000.555645627
+        median: 2112.951416
+        nunique: 40614
+      sloss:
+        min: 0.0
+        max: 5319.0
+        mean: 4.753692367487733
+        std: 64.64961956032252
+        median: 1.0
+        nunique: 253
+      dloss:
+        min: 0.0
+        max: 5507.0
+        mean: 6.308555604139339
+        std: 55.70802143325085
+        median: 0.0
+        nunique: 311
+      sinpkt:
+        min: 0.0
+        max: 60009.992
+        mean: 755.3943010848151
+        std: 6182.615731603772
+        median: 0.5579285
+        nunique: 39970
+      dinpkt:
+        min: 0.0
+        max: 57739.24
+        mean: 121.70128382695671
+        std: 1292.378498781412
+        median: 0.01
+        nunique: 37617
+      sjit:
+        min: 0.0
+        max: 1483830.917
+        mean: 6363.075099675206
+        std: 56724.01668947716
+        median: 17.6239185
+        nunique: 39944
+      djit:
+        min: 0.0
+        max: 463199.2401
+        mean: 535.1804302089224
+        std: 3635.305382910511
+        median: 0.0
+        nunique: 38381
+      swin:
+        min: 0.0
+        max: 255.0
+        mean: 133.45908030899287
+        std: 127.35699974821928
+        median: 255.0
+        nunique: 11
+      stcpb:
+        min: 0.0
+        max: 4294949667.0
+        mean: 1084641551.1152892
+        std: 1390859761.610447
+        median: 27888855.0
+        nunique: 39219
+      dtcpb:
+        min: 0.0
+        max: 4294880717.0
+        mean: 1073464670.8803867
+        std: 1381996192.032797
+        median: 28569748.5
+        nunique: 39108
+      dwin:
+        min: 0.0
+        max: 255.0
+        mean: 128.28662002623525
+        std: 127.49137005592411
+        median: 255.0
+        nunique: 14
+      tcprtt:
+        min: 0.0
+        max: 3.821465
+        mean: 0.055925044429869314
+        std: 0.11602177116004109
+        median: 0.000551
+        nunique: 26130
+      synack:
+        min: 0.0
+        max: 3.226788
+        mean: 0.029255929201282616
+        std: 0.07085352141912635
+        median: 0.000441
+        nunique: 24934
+      ackdat:
+        min: 0.0
+        max: 2.928778
+        mean: 0.0266691152285867
+        std: 0.055093538334030516
+        median: 8.0e-05
+        nunique: 24020
+      smean:
+        min: 24.0
+        max: 1504.0
+        mean: 139.52860370208424
+        std: 208.47206330498105
+        median: 65.0
+        nunique: 1282
+      dmean:
+        min: 0.0
+        max: 1500.0
+        mean: 116.2750692318904
+        std: 244.60027141356582
+        median: 44.0
+        nunique: 1222
+      trans_depth:
+        min: 0.0
+        max: 131.0
+        mean: 0.09427683039401448
+        std: 0.5429218189784762
+        median: 0.0
+        nunique: 8
+      response_body_len:
+        min: 0.0
+        max: 5242880.0
+        mean: 1595.3718845649323
+        std: 38066.97229164302
+        median: 0.0
+        nunique: 1190
+      ct_srv_src:
+        min: 1.0
+        max: 63.0
+        mean: 9.54660399358694
+        std: 11.09028854502271
+        median: 5.0
+        nunique: 57
+      ct_state_ttl:
+        min: 0.0
+        max: 6.0
+        mean: 1.3692731866103094
+        std: 1.0671880910513527
+        median: 1.0
+        nunique: 7
+      ct_dst_ltm:
+        min: 1.0
+        max: 59.0
+        mean: 5.744922994704368
+        std: 8.418111964770473
+        median: 2.0
+        nunique: 50
+      ct_src_dport_ltm:
+        min: 1.0
+        max: 59.0
+        mean: 4.928897633969781
+        std: 8.389545255933495
+        median: 1.0
+        nunique: 50
+      ct_dst_sport_ltm:
+        min: 1.0
+        max: 38.0
+        mean: 3.663010737015984
+        std: 5.915386045711441
+        median: 1.0
+        nunique: 33
+      ct_dst_src_ltm:
+        min: 1.0
+        max: 63.0
+        mean: 7.456359617159792
+        std: 11.415191374447998
+        median: 3.0
+        nunique: 57
+      is_ftp_login:
+        min: 0.0
+        max: 2.0
+        mean: 0.008283534956031676
+        std: 0.09117119352896848
+        median: 0.0
+        nunique: 3
+      ct_ftp_cmd:
+        min: 0.0
+        max: 2.0
+        mean: 0.008380702521498324
+        std: 0.09248507528583041
+        median: 0.0
+        nunique: 3
+      ct_flw_http_mthd:
+        min: 0.0
+        max: 16.0
+        mean: 0.1297429917893407
+        std: 0.6386825746380614
+        median: 0.0
+        nunique: 8
+      ct_src_ltm:
+        min: 1.0
+        max: 60.0
+        mean: 6.468359811494923
+        std: 8.543926678517815
+        median: 3.0
+        nunique: 50
+      ct_srv_dst:
+        min: 1.0
+        max: 62.0
+        mean: 9.164261769421367
+        std: 11.121413377603817
+        median: 5.0
+        nunique: 57
+      is_sm_ips_ports:
+        min: 0.0
+        max: 1.0
+        mean: 0.011125686245931108
+        std: 0.10489060483025199
+        median: 0.0
+        nunique: 2
+      label:
+        min: 0.0
+        max: 1.0
+        mean: 0.5506000097167566
+        std: 0.4974360707081698
+        median: 1.0
+        nunique: 2
+    categorical_stats: {}
+class_distribution:
+  training:
+    split: training
+    binary_distribution:
+      '0': 56000
+      '1': 119341
+    binary_percentage:
+      '0': 31.94
+      '1': 68.06
+    multiclass_distribution:
+      Normal: 56000
+      Generic: 40000
+      Exploits: 33393
+      Fuzzers: 18184
+      DoS: 12264
+      Reconnaissance: 10491
+      Analysis: 2000
+      Backdoor: 1746
+      Shellcode: 1133
+      Worms: 130
+    multiclass_percentage:
+      Normal: 31.94
+      Generic: 22.81
+      Exploits: 19.04
+      Fuzzers: 10.37
+      DoS: 6.99
+      Reconnaissance: 5.98
+      Analysis: 1.14
+      Backdoor: 1.0
+      Shellcode: 0.65
+      Worms: 0.07
+    n_classes: 10
+    imbalance_ratio: 430.77
+  testing:
+    split: testing
+    binary_distribution:
+      '0': 37000
+      '1': 45332
+    binary_percentage:
+      '0': 44.94
+      '1': 55.06
+    multiclass_distribution:
+      Normal: 37000
+      Generic: 18871
+      Exploits: 11132
+      Fuzzers: 6062
+      DoS: 4089
+      Reconnaissance: 3496
+      Analysis: 677
+      Backdoor: 583
+      Shellcode: 378
+      Worms: 44
+    multiclass_percentage:
+      Normal: 44.94
+      Generic: 22.92
+      Exploits: 13.52
+      Fuzzers: 7.36
+      DoS: 4.97
+      Reconnaissance: 4.25
+      Analysis: 0.82
+      Backdoor: 0.71
+      Shellcode: 0.46
+      Worms: 0.05
+    n_classes: 10
+    imbalance_ratio: 840.91
+overlap:
+  feature_columns_compared: 42
+  train_records: 175341
+  test_records: 82332
+  overlapping_records: 8541
+  overlap_percentage_of_test: 10.37
+  feature_columns_used:
+  - dur
+  - proto
+  - service
+  - state
+  - spkts
+  - dpkts
+  - sbytes
+  - dbytes
+  - rate
+  - sttl
+  - dttl
+  - sload
+  - dload
+  - sloss
+  - dloss
+  - sinpkt
+  - dinpkt
+  - sjit
+  - djit
+  - swin
+  - stcpb
+  - dtcpb
+  - dwin
+  - tcprtt
+  - synack
+  - ackdat
+  - smean
+  - dmean
+  - trans_depth
+  - response_body_len
+  - ct_srv_src
+  - ct_state_ttl
+  - ct_dst_ltm
+  - ct_src_dport_ltm
+  - ct_dst_sport_ltm
+  - ct_dst_src_ltm
+  - is_ftp_login
+  - ct_ftp_cmd
+  - ct_flw_http_mthd
+  - ct_src_ltm
+  - ct_srv_dst
+  - is_sm_ips_ports
+leakage_risks:
+- column: id
+  risk: Identifier column - should be excluded from features
+  severity: HIGH
+  recommendation: Exclude 'id' from feature set

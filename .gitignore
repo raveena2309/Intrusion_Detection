@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Datasets - keep raw and processed data out of git
+datasets/raw/*.csv
+datasets/raw/*.zip
+datasets/raw/*.tar.gz
+datasets/raw/*.gz
+datasets/processed/*.csv
+datasets/processed/*.pkl
+datasets/processed/*.parquet
+
+# Model artifacts
+models/classifier/*.pkl
+models/classifier/*.joblib
+models/classifier/*.json
+models/anomaly/*.pkl
+models/anomaly/*.joblib
+models/calibration/*.pkl
+models/calibration/*.joblib
+models/preprocessing/*.pkl
+models/preprocessing/*.joblib
+
+# Results that may be large
+results/figures/*.png
+results/figures/*.pdf
+results/confusion_matrices/*.png
+results/confusion_matrices/*.pdf
+
+# Experiment logs (keep configs, exclude large logs)
+experiments/logs/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets and credentials
+.env
+*.key
+*.pem
+
+# PCAP files
+*.pcap
+*.pcapng
+
+# Temporary files
+scratch/
+tmp/

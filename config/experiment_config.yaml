@@ -1,0 +1,75 @@
+# Experiment Configuration for Intelligent NIDS
+# ===============================================
+
+experiment:
+  project_name: "Intelligent_NIDS"
+  version: "0.1.0"
+  random_seed: 42
+  
+  # Software versions (to be filled at runtime)
+  environment:
+    python_version: null
+    numpy_version: null
+    pandas_version: null
+    sklearn_version: null
+    xgboost_version: null
+    torch_version: null
+    shap_version: null
+
+# Planned experiments
+experiments:
+  E1:
+    name: "Multiclass Baseline Comparison"
+    description: "Random Forest vs XGBoost for multiclass classification"
+    track: "A"
+    status: "pending"
+  
+  E2:
+    name: "CNN-LSTM vs Tabular ML"
+    description: "Compare deep sequence model with tabular baselines"
+    track: "A"
+    status: "pending"
+    notes: "Only if defensible sequence construction is possible"
+  
+  E3:
+    name: "Anomaly Detection Comparison"
+    description: "Isolation Forest vs Autoencoder for anomaly detection"
+    track: "B"
+    status: "pending"
+  
+  E4:
+    name: "Hybrid Fusion Benefit"
+    description: "Classifier alone vs hybrid fusion"
+    track: "B"
+    status: "pending"
+  
+  E5:
+    name: "Confidence Threshold Analysis"
+    description: "Different confidence thresholds and rejection behaviour"
+    track: "B"
+    status: "pending"
+  
+  E6:
+    name: "Multiple Withheld Families"
+    description: "Open-set generalization with different withheld families"
+    track: "B"
+    status: "pending"
+  
+  E7:
+    name: "Feature Engineering Contribution"
+    description: "With/without selected feature engineering"
+    track: "A"
+    status: "pending"
+  
+  E8:
+    name: "Operational Performance"
+    description: "Batch vs replay/live processing latency and throughput"
+    track: "operational"
+    status: "pending"
+
+# Logging
+logging:
+  experiment_log: "EXPERIMENT_LOG.md"
+  results_dir: "results"
+  metrics_dir: "results/metrics"
+  figures_dir: "results/figures"

@@ -1,0 +1,79 @@
+# Data Configuration for Intelligent NIDS
+# ========================================
+
+dataset:
+  name: "UNSW-NB15"
+  source_url: "https://research.unsw.edu.au/projects/unsw-nb15-dataset"
+  version: "official"
+  
+  paths:
+    raw_dir: "datasets/raw"
+    processed_dir: "datasets/processed"
+    sample_dir: "datasets/sample"
+  
+  # Expected files from the official UNSW-NB15 dataset
+  expected_files:
+    training: "UNSW_NB15_training-set.csv"
+    testing: "UNSW_NB15_testing-set.csv"
+  
+  # Target columns
+  target:
+    binary_label: "label"           # 0 = normal, 1 = attack
+    multiclass_label: "attack_cat"  # Attack category name
+  
+  # Columns to exclude from features (identifiers, targets, potential leakage)
+  exclude_columns:
+    - "id"
+    - "label"
+    - "attack_cat"
+  
+  # Known attack categories in UNSW-NB15
+  attack_categories:
+    - "Normal"
+    - "Analysis"
+    - "Backdoor"
+    - "DoS"
+    - "Exploits"
+    - "Fuzzers"
+    - "Generic"
+    - "Reconnaissance"
+    - "Shellcode"
+    - "Worms"
+
+preprocessing:
+  # Missing value strategy
+  missing_values:
+    numerical_strategy: "median"
+    categorical_strategy: "most_frequent"
+  
+  # Feature scaling
+  scaling:
+    method: "standard"  # standard, minmax, robust
+  
+  # Categorical encoding
+  encoding:
+    method: "label"  # label, onehot
+    handle_unknown: "use_encoded_value"
+    unknown_value: -1
+  
+  # Infinity handling
+  infinity_handling: "clip"  # clip, nan, remove
+  
+  random_seed: 42
+
+# Track A: Standard closed-set evaluation
+track_a:
+  description: "Standard multiclass classification on official train/test split"
+  use_official_split: true
+  validation_fraction: 0.15  # From training set for hyperparameter tuning
+
+# Track B: Open-set / withheld-attack evaluation
+track_b:
+  description: "Open-set evaluation with withheld attack families"
+  # Candidate families for withholding (sufficient sample counts)
+  candidate_withheld_families:
+    - "Backdoor"
+    - "Shellcode"
+    - "Worms"
+  primary_withheld: "Worms"  # Initial withheld family
+  random_seed: 42
