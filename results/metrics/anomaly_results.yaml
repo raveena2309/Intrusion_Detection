@@ -1,0 +1,39 @@
+threshold: 0.5008914265279641
+target_fpr: 0.05
+training_time_s: 0.2697939872741699
+full_test_set:
+  auroc: 0.7641432765709325
+  auprc: 0.775254718038343
+  precision: 0.838637476393649
+  recall: 0.26449307332568606
+  f1: 0.40215331466232873
+  fpr_on_normal: 0.06235135135135135
+  threshold: 0.5008914265279641
+  n_total: 82332
+  n_attacks: 45332
+  n_normal: 37000
+  per_class_detection_rate:
+    Analysis: 0.0355
+    Backdoor: 0.0429
+    DoS: 0.0518
+    Exploits: 0.0749
+    Fuzzers: 0.1018
+    Generic: 0.5432
+    Normal: 0.0624
+    Reconnaissance: 0.006
+    Shellcode: 0.0
+    Worms: 0.1364
+withheld_worms_subset:
+  auroc: 0.7312592137592139
+  auprc: 0.003828623314236549
+  precision: 0.0025940337224383916
+  recall: 0.13636363636363635
+  f1: 0.005091217649554518
+  fpr_on_normal: 0.06235135135135135
+  threshold: 0.5008914265279641
+  n_total: 37044
+  n_attacks: 44
+  n_normal: 37000
+  per_class_detection_rate:
+    Normal: 0.0624
+    Worms: 0.1364

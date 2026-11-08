@@ -1,0 +1,134 @@
+random_forest:
+  accuracy: 0.6838045960258465
+  macro_f1: 0.4944856383509558
+  weighted_f1: 0.7363494856415926
+  training_time_s: 4.08869481086731
+  per_class_report:
+    Analysis:
+      precision: 0.004733218588640275
+      recall: 0.01624815361890694
+      f1-score: 0.007330889703432189
+      support: 677.0
+    Backdoor:
+      precision: 0.04773561811505508
+      recall: 0.5351629502572899
+      f1-score: 0.0876527602191319
+      support: 583.0
+    DoS:
+      precision: 0.3932124049151551
+      recall: 0.16434336023477622
+      f1-score: 0.23180407036909279
+      support: 4089.0
+    Exploits:
+      precision: 0.7929223744292238
+      recall: 0.6239669421487604
+      f1-score: 0.6983712045043233
+      support: 11132.0
+    Fuzzers:
+      precision: 0.2505553887721405
+      recall: 0.6883866710656549
+      f1-score: 0.3673900603072589
+      support: 6062.0
+    Generic:
+      precision: 0.9951318236516793
+      recall: 0.9640718562874252
+      f1-score: 0.9793556374989907
+      support: 18871.0
+    Normal:
+      precision: 0.9918144014007442
+      recall: 0.6123783783783784
+      f1-score: 0.7572228256328849
+      support: 37000.0
+    Reconnaissance:
+      precision: 0.8532561505065123
+      recall: 0.8432494279176201
+      f1-score: 0.8482232772262984
+      support: 3496.0
+    Shellcode:
+      precision: 0.20703812316715542
+      recall: 0.9338624338624338
+      f1-score: 0.33893422947671625
+      support: 378.0
+    Worms:
+      precision: 0.5409836065573771
+      recall: 0.75
+      f1-score: 0.6285714285714286
+      support: 44.0
+    accuracy: 0.6838045960258465
+    macro avg:
+      precision: 0.5077383110103684
+      recall: 0.6131670173771246
+      f1-score: 0.4944856383509558
+      support: 82332.0
+    weighted avg:
+      precision: 0.8568463186161073
+      recall: 0.6838045960258465
+      f1-score: 0.7363494856415926
+      support: 82332.0
+xgboost:
+  accuracy: 0.7636156051110139
+  macro_f1: 0.5129726459952575
+  weighted_f1: 0.7800667815187294
+  training_time_s: 19.06617498397827
+  per_class_report:
+    Analysis:
+      precision: 0.02576489533011272
+      recall: 0.047267355982274745
+      f1-score: 0.03335070349140177
+      support: 677.0
+    Backdoor:
+      precision: 0.03567318757192175
+      recall: 0.10634648370497427
+      f1-score: 0.05342524773804395
+      support: 583.0
+    DoS:
+      precision: 0.492156862745098
+      recall: 0.12276840303252629
+      f1-score: 0.19651595224114307
+      support: 4089.0
+    Exploits:
+      precision: 0.617302731662147
+      recall: 0.8383938196191161
+      f1-score: 0.7110586263380443
+      support: 11132.0
+    Fuzzers:
+      precision: 0.29515456016350167
+      recall: 0.5717584955460244
+      f1-score: 0.3893288402134232
+      support: 6062.0
+    Generic:
+      precision: 0.9953342013888888
+      recall: 0.9721795347358381
+      f1-score: 0.983620620325443
+      support: 18871.0
+    Normal:
+      precision: 0.9582677165354331
+      recall: 0.7565135135135135
+      f1-score: 0.84552182449781
+      support: 37000.0
+    Reconnaissance:
+      precision: 0.9346816976127321
+      recall: 0.806350114416476
+      f1-score: 0.8657862407862408
+      support: 3496.0
+    Shellcode:
+      precision: 0.3821656050955414
+      recall: 0.7936507936507936
+      f1-score: 0.5159071367153912
+      support: 378.0
+    Worms:
+      precision: 0.7037037037037037
+      recall: 0.4318181818181818
+      f1-score: 0.5352112676056338
+      support: 44.0
+    accuracy: 0.7636156051110139
+    macro avg:
+      precision: 0.5440205161809081
+      recall: 0.5447046696019718
+      f1-score: 0.5129726459952575
+      support: 82332.0
+    weighted avg:
+      precision: 0.8307053960743784
+      recall: 0.7636156051110139
+      f1-score: 0.7800667815187294
+      support: 82332.0
